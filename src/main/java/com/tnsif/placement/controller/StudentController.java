@@ -14,19 +14,34 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    // CREATE
     @PostMapping
     public Student addStudent(@RequestBody Student student) {
         return studentService.saveStudent(student);
     }
 
+    // READ - Get by ID
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {
         return studentService.getStudentById(id);
     }
 
+    // READ - Get all
     @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
+
+    // UPDATE
+    @PutMapping("/{id}")
+    public Student updateStudent(@PathVariable Long id, @RequestBody Student student) {
+        student.setId(id); // ensure the path ID is applied
+        return studentService.saveStudent(student);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+    }
 }
-//
